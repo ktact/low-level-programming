@@ -7,7 +7,7 @@ exit:
     mov rax, 60
     syscall
 
-; rdi points to a address
+; rdi points to a string
 string_length:
     xor rax, rax
 .string_length_loop:
@@ -18,8 +18,15 @@ string_length:
 .string_length_end:
     ret
 
+; rdi pointer to a string
 print_string:
-    xor rax, rax
+    push rdi            ; 文字列のアドレスを退避
+    call string_length  ; raxに文字列長がセットされる
+    pop rsi             ; 書き込むデータのアドレス
+    mov rdx, rax        ; 書き込むバイト数
+    mov rax, 1          ; 'write'システムコールのID
+    mov rdi, 1          ; stdoutファイルのディスクリプタ
+    syscall
     ret
 
 print_char:

@@ -10,4 +10,6 @@ global _start
 
 _start:
     mov rdi, test_string
+    call print_string
+    xor rdi, rdi        ; rdx = 0
     call exit
