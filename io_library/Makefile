@@ -1,6 +1,6 @@
 test: test.asm lib.asm
 	nasm -felf64 test.asm -o test.o
-	ld test -o test.o
+	ld test.o -o test
 	./test
 
 clean:

@@ -7,8 +7,15 @@ exit:
     mov rax, 60
     syscall
 
+; rdi points to a address
 string_length:
     xor rax, rax
+.string_length_loop:
+    cmp byte [rdi + rax], 0
+    je .string_length_end
+    inc rax
+    jmp .string_length_loop
+.string_length_end:
     ret
 
 print_string:
