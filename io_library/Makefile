@@ -1,9 +1,11 @@
-test: test.asm lib.asm
-	nasm -felf64 test.asm -o test.o
-	ld test.o -o test
-	./test
+main: main.asm lib.asm
+	nasm -felf64 main.asm -o main.o
+	ld -g main.o -o main
+
+test:
+	./main
 
 clean:
-	rm -f test *.o *.~
+	rm -f main *.o *.~
 
 .PHONY: test clean

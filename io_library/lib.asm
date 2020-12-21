@@ -18,7 +18,7 @@ string_length:
 .string_length_end:
     ret
 
-; rdi pointer to a string
+; rdi points to a string
 print_string:
     push rdi            ; 文字列のアドレスを退避
     call string_length  ; raxに文字列長がセットされる
@@ -29,8 +29,12 @@ print_string:
     syscall
     ret
 
+; rdi points to an ASCII code
 print_char:
-    xor rax, rax
+    push rdi
+    mov rdi, rsp
+    call print_string
+    pop rdi
     ret
 
 print_newline:
