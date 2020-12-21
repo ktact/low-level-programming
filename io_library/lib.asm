@@ -10,12 +10,12 @@ exit:
 ; rdi points to a string
 string_length:
     xor rax, rax
-.string_length_loop:
+.loop:
     cmp byte [rdi + rax], 0
-    je .string_length_end
+    je .end
     inc rax
-    jmp .string_length_loop
-.string_length_end:
+    jmp .loop
+.end:
     ret
 
 ; rdi points to a string
@@ -43,7 +43,27 @@ print_newline:
     ret
 
 print_uint:
-    xor rax, rax
+    mov rax, rdi
+    mov rdi, rsp        ; バッファ確保
+    push 0              ; 終端記号を予めセットしておく
+    sub rsp, 16
+    dec rdi             ; 終端記号の1文字前にRDIをセット
+
+    mov r8, 10
+
+.loop:
+    xor rdx, rdx        ; RDX=0
+    div r8              ; RDX:RAX / 10 RAX=商, RDX=剰余
+    or dl, 0x30         ; 剰余=10進数に変換した際のn桁目の数値をASCII化
+    dec rdi
+    mov [rdi], dl       ; 文字コードをバッファに格納
+    test rax, rax
+    jnz .loop           ; 商が0になるまでループ
+
+    call print_string   ; 印字
+
+    add rsp, 24         ; SP復帰
+
     ret
 
 
