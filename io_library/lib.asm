@@ -68,7 +68,14 @@ print_uint:
 
 
 print_int:
-    xor rax, rax
+    test rdi, rdi
+    jns print_uint
+    push rdi
+    mov rdi, '-'
+    call print_char
+    pop rdi
+    neg rdi
+    jmp print_uint
     ret
 
 string_equals:
