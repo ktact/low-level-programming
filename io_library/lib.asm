@@ -76,7 +76,13 @@ string_equals:
     ret
 
 read_char:
-    xor rax, rax
+    push 0              ; 1バイト分のメモリ確保
+    xor rax, rax        ; RAX='read'のID
+    xor rdi, rdi        ; RDI=STDIN
+    mov rsi, rsp        ; SPに読み込んだデータを格納する
+    mov rdx, 1          ; 読み出すバイト数
+    syscall
+    pop rax             ; 読み込んだ値を戻り値にする
     ret
 
 read_word:

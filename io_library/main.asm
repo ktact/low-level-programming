@@ -12,10 +12,8 @@ _start:
     mov rdi, test_string
     call print_string
     call print_newline
-    mov rdi, 65535
-    call print_uint
-    call print_newline
-    mov rdi, 0
+    call read_char
+    mov rdi, rax
     call print_uint
     call print_newline
     xor rdi, rdi        ; rdx = 0
