@@ -78,7 +78,20 @@ print_int:
     jmp print_uint
     ret
 
+; rdi points to a string1
+; rsi points to a string2
+; returns rax: number(0: STR1!=STR2, 1: STR1=STR2)
 string_equals:
+    mov al, byte [rdi]
+    cmp al, byte [rsi]
+    jne .no
+    inc rdi
+    inc rsi
+    test al, al
+    jnz string_equals
+    mov rax, 1
+    ret
+    .no:
     xor rax, rax
     ret
 
