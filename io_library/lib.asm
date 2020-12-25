@@ -136,6 +136,20 @@ parse_uint:
 ; rdi points to a string
 ; returns rax: number, rdx : length
 parse_int:
+    mov al, byte[rdi]
+    cmp al, '-'
+    je .signed
+    jmp parse_uint
+
+.signed:
+    inc rdi
+    call parse_uint
+    neg rax
+    test rdx, rdx
+    jz .error
+    ret
+
+.error:
     xor rax, rax
     ret
 
