@@ -3,7 +3,7 @@ main: main.asm lib.asm
 	ld -g main.o -o main
 
 test:
-	./main
+	python test.py
 
 clean:
 	rm -f main *.o *.~
