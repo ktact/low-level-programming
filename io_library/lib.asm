@@ -116,8 +116,13 @@ parse_uint:
     xor rcx, rcx            ; RCX=0
 .loop:
     movzx r9, byte[rdi+rcx]
-    cmp r9b, '0'            ; 終端文字であれば処理終了
+
+    ; '0'〜'9'以外の文字が出現した場合には処理を終了する
+    cmp r9b, '0'
     jb  .end
+    cmp r9b, '9'
+    ja  .end
+
     xor rdx, rdx            ; RDX=0
     mul r8                  ; RAX * 10
     and r9b, 0x0f
