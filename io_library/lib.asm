@@ -105,7 +105,64 @@ read_char:
     pop rax             ; 読み込んだ値を戻り値にする
     ret
 
+; rdi : buffer address
+; rsi : buffer length
+; returns rax : buffer address, rdx : length of word
 read_word:
+    push r14
+    push r15
+    xor r14, r14
+    mov r15, rsi
+    dec r15                         ; 終端文字を除いた長さにしておく
+
+.first_char_is_whitespace:
+    push rdi
+    call read_char
+    pop rdi
+    ; 1文字目が空白文字の場合
+    cmp al, ' '
+    je .first_char_is_whitespace
+    cmp al, 9
+    je .first_char_is_whitespace
+    cmp al, 10
+    je .first_char_is_whitespace
+    cmp al, 13
+    je .first_char_is_whitespace
+    test al, al
+    jz .reaches_end_of_string
+
+.read_next_char:
+    mov byte[rdi + r14], al         ; 読み込んだ文字をバッファに格納する
+    inc r14                         ; ポインタを次の文字に移動する
+
+    push rdi
+    call read_char
+    pop rdi
+    cmp al, ' '
+    je .reaches_end_of_string
+    cmp al, 9
+    cmp al, 10
+    je .reaches_end_of_string
+    cmp al, 13
+    je .reaches_end_of_string
+    test al, al
+    je .reaches_end_of_string
+    cmp r14, r15                    ; バッファ長超過したか確認
+    je .reaches_end_of_buffer
+    jmp .read_next_char
+
+.reaches_end_of_string:
+    mov byte[rdi + r14], 0          ; ヌルで終わらせる
+    mov rax, rdi                    ; returns rax : buffer address
+    mov rdx, r14                    ; returns rdx : length of word
+    pop r15
+    pop r14
+    ret
+
+.reaches_end_of_buffer:
+    xor rax, rax
+    pop r15
+    pop r14
     ret
 
 ; rdi points to a string
