@@ -153,5 +153,34 @@ parse_int:
     xor rax, rax
     ret
 
+; rdi = src
+; rsi = dst
+; rdx = dst length
 string_copy:
+    push rdi
+    push rsi
+    push rdx
+    call string_length  ; RAX = src length
+    pop rdx
+    pop rsi
+    pop rdi
+
+    cmp rax, rdx
+    jae .too_long
+
+.loop:
+    ; byte[RDX] = byte[RDI]
+    mov dl, byte[rdi]
+    mov byte[rsi], dl
+    inc rdi
+    inc rsi
+    test dl, dl
+    jnz .loop
+    ret
+
+    pop rax
+    ret
+
+.too_long:
+    xor rax, rax
     ret
