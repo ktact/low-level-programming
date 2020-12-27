@@ -204,6 +204,7 @@ parse_int:
     neg rax
     test rdx, rdx
     jz .error
+    inc rdx
     ret
 
 .error:
