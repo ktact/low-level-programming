@@ -2,6 +2,43 @@
 
 ## x86-64アセンブリ
 
+## x86-64命令
+詳細は必ず[Intel® 64 and IA-32 Architectures Software Developer's Manual Combined Volumes 2A, 2B, 2C, and 2D: Instruction Set Reference, A-Z](https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-2a-2b-2c-and-2d-instruction-set-reference-a-z.html)を確認すること。
+
+### `xor` - 排他的論理和
+#### 動作
+  ```
+  DEST = DEST XOR SRC
+  ```
+  |フラグ|OF|SF|ZF|AF|CF|PF|
+  |---|---|---|---|---|---|---|
+  |実行後|0|?|?|`undefined`|0|?|
+  
+  ※?は演算結果に従って値が設定されることを示す。
+
+#### 実行例
+  ```asm
+  xor rax, rax ; rax=0
+  ```
+
+### `jmp`
+### `ja`
+### `cmp`
+### `mov`
+### `inc`
+### `dec`
+### `add`
+### `imul`
+### `mul`
+### `sub`
+### `idiv`
+### `div`
+### `neg`
+### `call`
+### `ret`
+### `push`
+### `pop`
+
 ## x86-64Linuxシステムコール
 ### 1. 呼び出し方法
 `rax`にシステムコール番号を設定し、
