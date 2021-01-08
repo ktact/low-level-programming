@@ -23,14 +23,43 @@
 
 ### `jmp`
 ### `ja`
-### `cmp`
+### `sub` - 減算
+#### 動作
+  ```
+  DEST = DEST - SRC
+  ```
+  |フラグ|OF|SF|ZF|AF|CF|PF|
+  |---|---|---|---|---|---|---|
+  |実行後|?|?|?|?|?|?|
+
+#### 実行例
+  ```asm
+  sub rax, 0x200
+  ```
+
+### `cmp` - 2値比較
+#### 動作
+  ```
+  temp = SRC1 - SignExtend(SRC2)
+  ModifyStatusFlags // SRC1、SRC2を引数としてSUB命令を実行した場合と同様にステータスフラグを変更する
+  ```
+  |フラグ|OF|SF|ZF|AF|CF|PF|
+  |---|---|---|---|---|---|---|
+  |実行後|?|?|?|?|?|?|
+
+#### 実行例
+  ```asm
+  ; if (rax = 0) goto ZERO;
+  cmp rax, 0
+  je .ZERO
+  ```
+
 ### `mov`
 ### `inc`
 ### `dec`
 ### `add`
 ### `imul`
 ### `mul`
-### `sub`
 ### `idiv`
 ### `div`
 ### `neg`
