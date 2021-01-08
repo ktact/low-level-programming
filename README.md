@@ -49,7 +49,7 @@
 
 #### 実行例
   ```asm
-  ; if (rax = 0) goto ZERO;
+  ; if (rax == 0) goto ZERO;
   cmp rax, 0
   je .ZERO
   ```
