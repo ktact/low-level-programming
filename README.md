@@ -27,7 +27,9 @@
 算術演算、シフト、ローテート命令で最上位ビットまたは再開ビットから桁溢れが発生した場合にセットされる
 
 ## x86-64命令
-詳細は必ず[Intel® 64 and IA-32 Architectures Software Developer's Manual Combined Volumes 2A, 2B, 2C, and 2D: Instruction Set Reference, A-Z](https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-2a-2b-2c-and-2d-instruction-set-reference-a-z.html)を確認すること。
+詳細は必ず[Intel® 64 and IA-32 Architectures Software Developer's Manual Combined Volumes 2A, 2B, 2C, and 2D: Instruction Set Reference, A-Z](https://software.intel.com/content/www/us/en/develop/download/intel-64-and-ia-32-architectures-sdm-combined-volumes-2a-2b-2c-and-2d-instruction-set-reference-a-z.html)を確認すること。  
+※オペコード概要表のオペコード列の表記は`3.1.1.1 Opcode Column in the Instruction Summary Table(Instructions without VEX Prefix)`を参照  
+※オペコード概要表の命令列の表記は`3.1.1.3 Instruction Column in the Opcode Summary Table`を参照
 
 ### `xor` - 排他的論理和
 #### 動作
@@ -37,6 +39,7 @@
   |フラグ|OF|SF|ZF|AF|CF|PF|
   |---|---|---|---|---|---|---|
   |実行後|0|?|?|`undefined`|0|?|
+
   ※?は演算結果に従って値が設定されることを示す。
 
 #### 実行例
@@ -55,6 +58,7 @@
   |フラグ|OF|SF|ZF|AF|CF|PF|
   |---|---|---|---|---|---|---|
   |実行後|?|?|?|?|?|?|
+
   ※?は演算結果に従って値が設定されることを示す。
 
 #### 実行例
@@ -70,7 +74,8 @@
   |フラグ|OF|SF|ZF|AF|CF|PF|
   |---|---|---|---|---|---|---|
   |実行後|?|?|?|?|?|?|
-  ※?は演算結果に従って値が設定されることを示す。
+
+※?は演算結果に従って値が設定されることを示す。
 
 #### 実行例
   ```asm
@@ -78,13 +83,14 @@
   ```
 
 ### `neg` - 2の補数
-|オペコード|命令|説明|
-|---|---|---|
-|F6 /3|NEG r/m8|r/m8の2の補数を求め、r/m8に代入|
-|REX + F6 /3|NEG r/m8*|r/m8の2の補数を求め、r/m8に代入|
-|F7 /3|NEG r/m16|r/m16の2の補数を求め、r/m16に代入|
-|F7 /3|NEG r/m32|r/m32の2の補数を求め、r/m32に代入|
-|REX.W + F7 /3|NEG r/m64|r/m64の2の補数を求め、r/m64に代入|
+#### オペコード概要
+  |オペコード|命令|説明|
+  |---|---|---|
+  |F6 /3|NEG r/m8|r/m8の2の補数を求め、結果をr/m8に代入|
+  |REX + F6 /3|NEG r/m8*|r/m8の2の補数を求め、結果をr/m8に代入|
+  |F7 /3|NEG r/m16|r/m16の2の補数を求め、結果をr/m16に代入|
+  |F7 /3|NEG r/m32|r/m32の2の補数を求め、結果をr/m32に代入|
+  |REX.W + F7 /3|NEG r/m64|r/m64の2の補数を求め、結果をr/m64に代入|
 
 #### 動作
   ```
@@ -97,6 +103,7 @@
   |フラグ|OF|SF|ZF|AF|CF|PF|
   |---|---|---|---|---|---|---|
   |実行後|?|?|?|?|?|?|
+
   ※?は演算結果に従って値が設定されることを示す。
 
 #### 実行例
@@ -114,6 +121,7 @@
   |フラグ|OF|SF|ZF|AF|CF|PF|
   |---|---|---|---|---|---|---|
   |実行後|?|?|?|?|?|?|
+
   ※?は演算結果に従って値が設定されることを示す。
 
 #### 実行例
@@ -132,6 +140,7 @@
   |フラグ|OF|SF|ZF|AF|CF|PF|
   |---|---|---|---|---|---|---|
   |実行後|?|?|?|?|`not affected`|?|
+
   ※?は演算結果に従って値が設定されることを示す。
 
 #### 実行例
@@ -147,6 +156,7 @@
   |フラグ|OF|SF|ZF|AF|CF|PF|
   |---|---|---|---|---|---|---|
   |実行後|?|?|?|?|`not affected`|?|
+
   ※?は演算結果に従って値が設定されることを示す。
 
 #### 実行例
