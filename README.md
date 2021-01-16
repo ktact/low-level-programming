@@ -108,9 +108,25 @@
 
 #### 実行例
    ```asm
-   mov rax, 1
-   neg rax
+   section .text
+   
+   global _start
+   
+   _start:
+     mov rdi, -1
+     NEG rdi     ; RDI=-1
+     
+     ; call exit systemcall
+     mov rax, 60
+     syscall
    ```
+
+##### 実行結果
+  ```bash
+  $ ./neg
+  $ echo $?
+  1
+  ```
 
 ### `cmp` - 2値比較
 #### 動作
